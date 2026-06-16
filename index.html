@@ -689,11 +689,6 @@ body.room-b #cursor-ring{ border-style:dashed; }
   letter-spacing:.14em; line-height:1; --gx:50%; isolation:isolate;
 }
 .fc-badge .fb-txt{ font-variation-settings:'wdth' 112; font-weight:900; color:var(--red); position:relative; z-index:1; }
-.fc-sheen{
-  position:absolute; top:-30%; bottom:-30%; left:0; width:46%;
-  background:linear-gradient(105deg, transparent, rgba(255,174,45,.45), transparent);
-  transform:translateX(-140%);
-}
 /* amber spotlight that tracks the cursor across FOCAL on hover — mirrors the hero monogram */
 .fc-glow{
   position:absolute; inset:-40% -12%; pointer-events:none; z-index:2;
@@ -702,6 +697,7 @@ body.room-b #cursor-ring{ border-style:dashed; }
 }
 .fc-badge:hover .fc-glow{ opacity:1; }
 @media(hover:none){ .fc-badge:hover .fc-glow{ opacity:0; } }
+@media (prefers-reduced-motion: reduce){ .fc-glow{ transition:none; } }
 
 .focal{
   display:grid; grid-template-columns:minmax(180px,340px) 1fr; gap:clamp(32px,6vw,90px);
@@ -1741,7 +1737,7 @@ body.playing #hero-mark .mk-tri{ animation:trilamp 1.2s ease-in-out infinite; }
       </svg>
       <div class="focal-right">
         <span class="fc-cap mono">Reference monitoring throughout &middot; East-coast reference rooms &middot; calibrated to the Las Vegas standard</span>
-        <p class="fc-line">DMI Brooklyn,<br>powered by <span class="fc-badge"><span class="fb-txt">FOCAL</span><i class="fc-sheen" aria-hidden="true"></i><i class="fc-glow" aria-hidden="true"></i></span><span class="ft-dot">.</span><svg class="fc-mark" viewBox="0 0 384 383.999986" role="img" aria-label="Focal"><use href="#focal-mark"/></svg></p>
+        <p class="fc-line">DMI Brooklyn,<br>powered by <span class="fc-badge"><span class="fb-txt">FOCAL</span><i class="fc-glow" aria-hidden="true"></i></span><span class="ft-dot">.</span><svg class="fc-mark" viewBox="0 0 384 383.999986" role="img" aria-label="Focal"><use href="#focal-mark"/></svg></p>
         <span class="fc-foot mono">DRIVER SECTION, NOT TO SCALE &middot; THE DOME TRACKS THE <b>LOW END</b> OF THE LIVE MIX</span>
       </div>
     </div>
@@ -3199,7 +3195,6 @@ if(hasGSAP && !REDUCED){
      .fromTo('#driver .dv-domeglow', { opacity: 0.16, scale: 1 }, { opacity: 0.85, scale: 1.5, duration: 0.42, yoyo: true, repeat: 1, svgOrigin: '120 120', ease: 'power2.out' }, 1.62)
      .from('#brooklyn .fc-line', { opacity: 0, y: 24, duration: 0.8, ease: 'power3.out' }, 1.05)
      .from('#brooklyn .fc-badge', { scale: 0.55, opacity: 0, duration: 0.65, ease: 'back.out(2.4)' }, 1.5)
-     .fromTo('#brooklyn .fc-sheen', { xPercent: -140 }, { xPercent: 170, duration: 0.9, ease: 'power2.inOut' }, 1.95)
      .from('#brooklyn .fc-mark', { scale: 0.35, opacity: 0, rotation: -14, duration: 0.7, ease: 'back.out(2.4)', transformOrigin: '50% 50%' }, 1.9)
      .fromTo('.fc-scan', { left: '-15%' }, { left: '108%', duration: 1.5, ease: 'power2.inOut' }, 1.7);
 
