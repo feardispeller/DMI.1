@@ -26,6 +26,7 @@
   --amber:     #FFAE2D;
   --amber-hi:  #FFC861;
   --red:       #FF3D2E;
+  --red-rgb:   255, 61, 46;
   --dim:       #7A7468;
   --line:      rgba(239,231,214,.13);
   --line-soft: rgba(239,231,214,.07);
@@ -101,7 +102,18 @@ body.cursor-play #cursor{ opacity:0; }
 #loader .l-tag{ font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; color:var(--dim); text-transform:uppercase; }
 #loader .l-powered{ display:inline-flex; align-items:center; gap:1.05em; font-family:var(--mono); font-size:.6rem; letter-spacing:.26em; color:var(--dim); text-transform:uppercase; margin-top:18px; }
 #loader .l-powered .fc-logo{ height:52px; width:52px; }
-#loader .l-enter{ display:flex; align-items:center; gap:24px; opacity:0; }
+#loader .l-enter{ display:flex; align-items:center; gap:24px; opacity:0; flex-wrap:wrap; justify-content:center; }
+/* accent picker on the splash */
+#loader .l-tone{ display:flex; align-items:center; gap:11px; }
+.lt-cap{ font-size:.52rem; letter-spacing:.26em; color:#6f6857; }
+.lt-sws{ display:flex; gap:9px; }
+.lt-sw{ width:18px; height:18px; padding:0; border-radius:50%; cursor:pointer; position:relative;
+  background:var(--sw); border:1px solid rgba(239,231,214,.25);
+  transition:transform .25s var(--ease-out), box-shadow .25s var(--ease-out); }
+.lt-sw:hover{ transform:scale(1.16); }
+.lt-sw.is-on{ box-shadow:0 0 0 2px var(--bg), 0 0 0 3.5px var(--sw), 0 0 12px var(--sw); }
+.lt-sw:focus-visible{ outline:2px solid var(--sw); outline-offset:3px; }
+@media (prefers-reduced-motion: reduce){ .lt-sw{ transition:none; } }
 #loader .l-go{
   font-family:var(--mono); font-size:.66rem; letter-spacing:.18em; color:var(--cream); text-transform:uppercase;
   border:1px solid var(--line); padding:14px 22px; display:flex; align-items:center; gap:11px;
@@ -177,13 +189,13 @@ body.playing .hd-play .icon-play{ display:none; }
 body.playing .hd-play .icon-pause{ display:block; }
 .hd-play::before{
   content:''; position:absolute; inset:-5px; border-radius:50%;
-  border:1px solid rgba(255,61,46,0); transition:border-color .4s;
+  border:1px solid rgba(var(--red-rgb),0); transition:border-color .4s;
 }
-body.playing .hd-play{ border-color:rgba(255,61,46,.55); }
+body.playing .hd-play{ border-color:rgba(var(--red-rgb),.55); }
 body.playing .hd-play svg{ fill:var(--red); }
 body.playing .hd-play:hover svg{ fill:var(--amber-hi); }
-body.playing .hd-play::before{ border-color:rgba(255,61,46,.4); animation:pulse 2s ease-out infinite; }
-@keyframes lamp{ 0%,100%{ box-shadow:0 0 6px 1px rgba(255,61,46,.7);} 50%{ box-shadow:0 0 14px 3px rgba(255,61,46,.9);} }
+body.playing .hd-play::before{ border-color:rgba(var(--red-rgb),.4); animation:pulse 2s ease-out infinite; }
+@keyframes lamp{ 0%,100%{ box-shadow:0 0 6px 1px rgba(var(--red-rgb),.7);} 50%{ box-shadow:0 0 14px 3px rgba(var(--red-rgb),.9);} }
 .brand .wordmark{ font-variation-settings:'wdth' 125; font-weight:900; letter-spacing:.26em; font-size:.8rem; }
 .brand .tag{ font-family:var(--mono); font-size:.55rem; letter-spacing:.18em; color:var(--dim); display:block; margin-top:3px; }
 .brand .powered{ display:flex; align-items:center; gap:.6em; margin-top:5px; font-size:.5rem; letter-spacing:.16em; color:var(--dim); text-transform:uppercase; white-space:nowrap; }
@@ -299,7 +311,7 @@ body.playing #playbtn::before{ border-color:rgba(255,174,45,.35); animation:puls
   flex:1; background:#2a251d; border-radius:1px; transition:background .08s linear;
 }
 .meter i.on{ background:var(--amber); box-shadow:0 0 6px rgba(255,174,45,.45); }
-.meter i.on.hot{ background:var(--red); box-shadow:0 0 8px rgba(255,61,46,.55); }
+.meter i.on.hot{ background:var(--red); box-shadow:0 0 8px rgba(var(--red-rgb),.55); }
 .strip .ch .lab{ font-family:var(--mono); font-size:.56rem; letter-spacing:.18em; color:var(--dim); }
 .strip .scale{
   display:flex; flex-direction:column; justify-content:space-between; height:170px; padding:4px 0;
@@ -422,7 +434,7 @@ body.playing #playbtn::before{ border-color:rgba(255,174,45,.35); animation:puls
   transition:background .25s, box-shadow .25s;
 }
 .unit:hover .led{ background:var(--amber); box-shadow:0 0 10px rgba(255,174,45,.8); }
-body.playing .unit.engaged .led{ background:var(--red); box-shadow:0 0 10px rgba(255,61,46,.85); animation:lamp 1.2s ease-in-out infinite; }
+body.playing .unit.engaged .led{ background:var(--red); box-shadow:0 0 10px rgba(var(--red-rgb),.85); animation:lamp 1.2s ease-in-out infinite; }
 .unit h3{
   font-variation-settings:'wdth' 116; font-weight:900; text-transform:uppercase;
   font-size:clamp(1.5rem,3.4vw,2.7rem); line-height:.95; letter-spacing:-.01em;
@@ -480,7 +492,7 @@ body.playing .unit.engaged .led{ background:var(--red); box-shadow:0 0 10px rgba
 #freqcurve{ width:100%; margin-top:34px; }
 #freqcurve .grid-l{ stroke:rgba(239,231,214,.07); }
 #freqcurve .curve{ stroke:var(--amber); stroke-width:1.8; fill:none; }
-#freqcurve .flat{ stroke:rgba(255,61,46,.4); stroke-dasharray:3 5; }
+#freqcurve .flat{ stroke:rgba(var(--red-rgb),.4); stroke-dasharray:3 5; }
 #freqcurve text{ font-family:var(--mono); font-size:7px; fill:#6b6452; letter-spacing:.06em; }
 .spec-sheet{ border-top:1px solid var(--line); }
 .spec-row{
@@ -685,7 +697,7 @@ body.room-b #cursor-ring{ border-style:dashed; }
 
 .fc-badge{
   display:inline-block; position:relative; overflow:hidden; vertical-align:baseline;
-  border:1px solid rgba(255,61,46,.55); padding:.08em .4em .14em; margin:0 .05em;
+  border:1px solid rgba(var(--red-rgb),.55); padding:.08em .4em .14em; margin:0 .05em;
   letter-spacing:.14em; line-height:1; --gx:50%; isolation:isolate;
 }
 .fc-badge .fb-txt{ font-variation-settings:'wdth' 112; font-weight:900; color:var(--red); position:relative; z-index:1; }
@@ -761,7 +773,7 @@ body.room-b #cursor-ring{ border-style:dashed; }
   background:var(--red); clip-path:polygon(0 0, 100% 0, 50% 100%);
 }
 .fc-mark{ display:inline-block; width:1.22em; height:1.22em; vertical-align:-.28em; margin-left:.3em;
-  filter:drop-shadow(0 0 20px rgba(255,61,46,.35)); will-change:transform; }
+  filter:drop-shadow(0 0 20px rgba(var(--red-rgb),.35)); will-change:transform; }
 .fc-foot b{ color:var(--red); font-weight:inherit; }
 @media(max-width:760px){ .focal{ grid-template-columns:1fr; } .driver{ max-width:200px; } }
 
@@ -931,7 +943,7 @@ body.room-b #cursor-ring{ border-style:dashed; }
 /* element highlight when its zone is active */
 .blueprint .lit{ filter:drop-shadow(0 0 7px rgba(255,174,45,.85)); }
 .bp-console.lit, .bp-sofa.lit{ fill:rgba(255,174,45,.16); stroke:var(--amber); }
-.bp-diff.lit line{ opacity:1; stroke:var(--red); filter:drop-shadow(0 0 5px rgba(255,61,46,.8)); }
+.bp-diff.lit line{ opacity:1; stroke:var(--red); filter:drop-shadow(0 0 5px rgba(var(--red-rgb),.8)); }
 .bp-main.lit circle{ stroke:var(--amber); }
 
 /* hotspots */
@@ -947,8 +959,8 @@ body.room-b #cursor-ring{ border-style:dashed; }
   border:1px solid var(--line); opacity:0; transform:translateX(-4px); transition:opacity .25s, transform .25s; }
 .bp-hot:hover span, .bp-hot:focus-visible span, .bp-hot.active span{ opacity:1; transform:translateX(0); }
 .bp-hot:hover i, .bp-hot.active i{ transform:scale(1.25); box-shadow:0 0 0 5px rgba(255,174,45,.22), 0 0 14px rgba(255,174,45,.7); }
-.bp-hot.active i{ background:var(--red); box-shadow:0 0 0 5px rgba(255,61,46,.25), 0 0 16px rgba(255,61,46,.8); }
-.bp-hot.active i::before{ border-color:rgba(255,61,46,.6); }
+.bp-hot.active i{ background:var(--red); box-shadow:0 0 0 5px rgba(var(--red-rgb),.25), 0 0 16px rgba(var(--red-rgb),.8); }
+.bp-hot.active i::before{ border-color:rgba(var(--red-rgb),.6); }
 
 /* ---------- Studio I · Phase 3 — one instrument ---------- */
 .tr-stage{ position:relative; }
@@ -967,7 +979,7 @@ body.room-b #cursor-ring{ border-style:dashed; }
 .tv-jack.hot i{ background:var(--amber); box-shadow:0 0 8px rgba(255,174,45,.9); }
 .tv-tune{ position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0;
   background:repeating-linear-gradient(0deg, rgba(255,174,45,.06) 0 2px, transparent 2px 4px),
-             linear-gradient(120deg, rgba(255,61,46,.12), rgba(255,174,45,.10), rgba(239,231,214,.07)); }
+             linear-gradient(120deg, rgba(var(--red-rgb),.12), rgba(255,174,45,.10), rgba(239,231,214,.07)); }
 @media (hover:none),(pointer:coarse){ .bp-inner{ transform:none !important; } }
 
 /* ---------- Studio I · audio-reactive room (read-only) ---------- */
@@ -1059,7 +1071,7 @@ body.playing .tv-play .tp-off{ display:inline; }
 .atmos-map{ width:100%; height:auto; display:block; aspect-ratio:620/580; }
 .atmos-map .bp-grid line{ stroke:var(--line); stroke-width:1; }
 .am-shell{ fill:none; stroke:rgba(255,174,45,.5); stroke-width:1.6; stroke-dasharray:5 6; }
-.am-links line{ stroke:rgba(255,61,46,.34); stroke-width:1; stroke-dasharray:2 5; }
+.am-links line{ stroke:rgba(var(--red-rgb),.34); stroke-width:1; stroke-dasharray:2 5; }
 .am-bed circle{ fill:var(--amber); }
 .am-bed .am-lfe circle{ fill:rgba(255,174,45,.55); }
 .am-bed text, .am-heights text{ fill:#8c8472; font-family:var(--mono); font-size:15px; text-anchor:middle; letter-spacing:.04em; }
@@ -1327,11 +1339,58 @@ body.playing #hero-mark .mk-tri{ animation:trilamp 1.2s ease-in-out infinite; }
       <div class="l-sub" id="lsub">CALIBRATING MONITORS</div>
     </div>
     <div class="l-enter">
+      <div class="l-tone" role="radiogroup" aria-label="Accent colour">
+        <span class="lt-cap mono">ACCENT</span>
+        <div class="lt-sws">
+          <button class="lt-sw is-on" type="button" role="radio" aria-checked="true"  data-accent="ember"       style="--sw:#FF3D2E" aria-label="Ember \u2014 signature red"></button>
+          <button class="lt-sw"       type="button" role="radio" aria-checked="false" data-accent="ice"         style="--sw:#2BD6E6" aria-label="Ice"></button>
+          <button class="lt-sw"       type="button" role="radio" aria-checked="false" data-accent="ultraviolet" style="--sw:#875CFF" aria-label="Ultraviolet"></button>
+          <button class="lt-sw"       type="button" role="radio" aria-checked="false" data-accent="viridian"    style="--sw:#2BD98A" aria-label="Viridian"></button>
+        </div>
+      </div>
       <button id="enterSound" class="l-go" type="button">ENTER &mdash; SOUND ON<i class="go-tri" aria-hidden="true"></i></button>
       <button id="enterQuiet" class="l-quiet" type="button">enter quiet</button>
     </div>
   </div>
 </div>
+
+<!-- accent theme: recolours the red accent site-wide (CSS vars + canvas globals) -->
+<script>
+(function(){
+  var KEY='dmi-accent';
+  var THEMES={
+    ember:      { hex:'#FF3D2E', rgb:'255, 61, 46' },
+    ice:        { hex:'#2BD6E6', rgb:'43, 214, 230' },
+    ultraviolet:{ hex:'#875CFF', rgb:'135, 92, 255' },
+    viridian:   { hex:'#2BD98A', rgb:'43, 217, 138' }
+  };
+  var root=document.documentElement;
+  var sws=Array.prototype.slice.call(document.querySelectorAll('.lt-sw'));
+  function apply(key){
+    var t=THEMES[key]||THEMES.ember;
+    if(key==='ember'){ root.style.removeProperty('--red'); root.style.removeProperty('--red-rgb'); }
+    else { root.style.setProperty('--red', t.hex); root.style.setProperty('--red-rgb', t.rgb); }
+    root.setAttribute('data-accent', key);
+    window.DMI_RED = t.hex;
+    window.DMI_RED_RGB = t.rgb;
+    window.DMI_RED_ARR = t.rgb.split(',').map(function(n){ return parseInt(n,10); });
+    sws.forEach(function(b){ var on=b.getAttribute('data-accent')===key; b.classList.toggle('is-on', on); b.setAttribute('aria-checked', on?'true':'false'); });
+  }
+  var saved='ember';
+  try{ var s=localStorage.getItem(KEY); if(s && THEMES[s]) saved=s; }catch(e){}
+  apply(saved);
+  sws.forEach(function(b, i){
+    b.addEventListener('click', function(){ var k=b.getAttribute('data-accent'); apply(k); try{ localStorage.setItem(KEY,k); }catch(e){} });
+    b.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight' || e.key==='ArrowLeft'){
+        e.preventDefault();
+        var ni=(i + (e.key==='ArrowRight'?1:-1) + sws.length) % sws.length;
+        sws[ni].focus(); sws[ni].click();
+      }
+    });
+  });
+})();
+</script>
 
 <!-- stage -->
 <canvas id="scene" aria-hidden="true"></canvas>
@@ -1687,7 +1746,7 @@ body.playing #hero-mark .mk-tri{ animation:trilamp 1.2s ease-in-out infinite; }
             <!-- soffit / cloud perimeter -->
             <path class="bp-soffitline" d="M150,70 L470,70 L560,150 L560,486 L60,486 L60,150 Z"/>
             <!-- room shell (draws itself) -->
-            <path class="bp-draw bp-shell" d="M150,46 L470,46 L582,150 L582,506 L40,506 L40,150 Z"/>
+            <path class="bp-draw bp-shell" pathLength="1000" d="M150,46 L470,46 L582,150 L582,506 L40,506 L40,150 Z"/>
             <!-- angled monitor baffles -->
             <line class="bp-soffit" x1="56" y1="150" x2="150" y2="62"/>
             <line class="bp-soffit" x1="470" y1="62" x2="564" y2="150"/>
@@ -1706,9 +1765,9 @@ body.playing #hero-mark .mk-tri{ animation:trilamp 1.2s ease-in-out infinite; }
             <rect class="bp-fill bp-console" x="224" y="300" width="174" height="40" rx="3"/>
             <rect class="bp-fill bp-sofa" x="226" y="452" width="170" height="34" rx="3"/>
             <!-- mix triangle -->
-            <line class="bp-draw bp-tri" x1="311" y1="338" x2="150" y2="108"/>
-            <line class="bp-draw bp-tri" x1="311" y1="338" x2="470" y2="108"/>
-            <line class="bp-draw bp-tri bp-base" x1="150" y1="108" x2="470" y2="108"/>
+            <line class="bp-draw bp-tri" pathLength="1000" x1="311" y1="338" x2="150" y2="108"/>
+            <line class="bp-draw bp-tri" pathLength="1000" x1="311" y1="338" x2="470" y2="108"/>
+            <line class="bp-draw bp-tri bp-base" pathLength="1000" x1="150" y1="108" x2="470" y2="108"/>
             <!-- mains -->
             <g class="bp-main"><circle cx="150" cy="108" r="9"/><circle cx="150" cy="108" r="3.4"/></g>
             <g class="bp-main"><circle cx="470" cy="108" r="9"/><circle cx="470" cy="108" r="3.4"/></g>
@@ -1971,13 +2030,13 @@ body.playing #hero-mark .mk-tri{ animation:trilamp 1.2s ease-in-out infinite; }
       <svg class="driver" id="driver" viewBox="0 0 240 240" role="img" aria-label="Reference monitor driver — tracks the live low end">
         <defs>
           <radialGradient id="dvGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#FF3D2E" stop-opacity=".6"/>
-            <stop offset="100%" stop-color="#FF3D2E" stop-opacity="0"/>
+            <stop offset="0%" style="stop-color:var(--red)" stop-opacity=".6"/>
+            <stop offset="100%" style="stop-color:var(--red)" stop-opacity="0"/>
           </radialGradient>
           <radialGradient id="dvBeam" cx="120" cy="120" r="108" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF3D2E" stop-opacity="0"/>
-            <stop offset="55%" stop-color="#FF3D2E" stop-opacity=".12"/>
-            <stop offset="100%" stop-color="#FF3D2E" stop-opacity=".62"/>
+            <stop offset="0%" style="stop-color:var(--red)" stop-opacity="0"/>
+            <stop offset="55%" style="stop-color:var(--red)" stop-opacity=".12"/>
+            <stop offset="100%" style="stop-color:var(--red)" stop-opacity=".62"/>
           </radialGradient>
         </defs>
         <circle class="tk" cx="120" cy="120" r="110"/>
@@ -3189,7 +3248,7 @@ function rowWave(cv){
     for(var i=0; i<bars; i++){
       var a = Math.abs(Math.sin(i*0.55 + seed)) * 0.55 + Math.abs(Math.sin(i*0.21 + seed*2 + ph)) * 0.45;
       var bh = Math.max(2, a * h * 0.86);
-      ctx2.fillStyle = a > 0.82 ? '#FF3D2E' : '#FFAE2D';
+      ctx2.fillStyle = a > 0.82 ? (window.DMI_RED||'#FF3D2E') : '#FFAE2D';
       ctx2.fillRect(i*(w/bars), (h-bh)/2, bw, bh);
     }
   }
@@ -3431,7 +3490,8 @@ if(hasGSAP && !REDUCED){
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
     gsap.to(path, {
       strokeDashoffset: 0, duration: 2, ease: 'power2.inOut',
-      scrollTrigger: { trigger: '#freqcurve', start: 'top 85%' }
+      scrollTrigger: { trigger: '#freqcurve', start: 'top 85%' },
+      onComplete: function(){ path.style.strokeDasharray = 'none'; path.style.strokeDashoffset = '0'; }
     });
   }
 
@@ -3448,6 +3508,7 @@ if(hasGSAP && !REDUCED){
       ftl.to(el, { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut' }, 0.25 + di * 0.14);
     }catch(e){}
   });
+  ftl.add(function(){ document.querySelectorAll('#driver .dr').forEach(function(el){ el.style.strokeDasharray = 'none'; el.style.strokeDashoffset = '0'; }); });
   ftl.from('#driver .dc', { scale: 0, svgOrigin: '120 120', duration: 0.5, ease: 'back.out(3)' }, 1.15)
      .from('#brooklyn .fc-cap', { opacity: 0, duration: 0.6 }, 0.5)
      .from('#driver .dv-sweep', { opacity: 0, duration: 1.0, ease: 'power2.out' }, 0.4)
@@ -3966,16 +4027,15 @@ if(hasGSAP && !REDUCED){
   function drawIn(){
     if(root.dataset.drawn) return; root.dataset.drawn = '1';
     if(!G || REDUCED){
-      root.querySelectorAll('.bp-draw').forEach(function(p){ p.style.strokeDashoffset = 0; });
+      root.querySelectorAll('.bp-draw').forEach(function(p){ p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = '0'; });
       G && G.set(root.querySelectorAll('.bp-hot, .bp-fill, .bp-main, .bp-listener, .bp-diff, .bp-soffit, .bp-soffitline'), { opacity:1 });
       ready = true; routeCable();
       return;
     }
     var tl = G.timeline();
-    root.querySelectorAll('.bp-draw').forEach(function(p){
-      var L = 0; try{ L = p.getTotalLength(); }catch(e){ L = 600; }
-      G.set(p, { strokeDasharray:L, strokeDashoffset:L });
-    });
+    /* pathLength="1000" normalizes every drawn stroke, so dash math is
+       independent of geometry, browser, and non-scaling-stroke scale */
+    G.set(root.querySelectorAll('.bp-draw'), { strokeDasharray:1000, strokeDashoffset:1000 });
     G.set(root.querySelectorAll('.bp-fill, .bp-main, .bp-listener, .bp-diff line, .bp-soffit, .bp-soffitline, .bp-door'), { opacity:0 });
     G.set(root.querySelectorAll('.bp-hot'), { autoAlpha:0, scale:0.4 });
     tl.to('#studio-i .bp-shell', { strokeDashoffset:0, duration:1.1, ease:'power2.inOut' }, 0)
@@ -3985,7 +4045,10 @@ if(hasGSAP && !REDUCED){
       .to('#studio-i .bp-diff line', { opacity:.62, duration:.5, stagger:.03 }, 1.0)
       .to('#studio-i .bp-main, #studio-i .bp-listener', { opacity:1, duration:.5, stagger:.06 }, 1.1)
       .to('#studio-i .bp-hot', { autoAlpha:1, scale:1, duration:.5, ease:'back.out(2.2)', stagger:.07 }, 1.25)
-      .add(function(){ ready = true; setZone('mix', false); startTour(); }, 1.5);   /* settle, then a guided attract pass */
+      .add(function(){ ready = true; setZone('mix', false); startTour(); }, 1.5)
+      /* settled state: drop the dash entirely so the stroke is plainly solid
+         (kills any non-scaling-stroke dash quirk that left the left wall gapped) */
+      .add(function(){ root.querySelectorAll('.bp-draw').forEach(function(p){ p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = '0'; }); });
   }
   if(ST){
     ST.create({ trigger:'.bp-inner', start:'top 78%', once:true, onEnter:drawIn });
@@ -4262,7 +4325,7 @@ if(hasGSAP && !REDUCED){
         var yy=lerp(S(70),S(500),b/(bands-1));
         var aMode=0.06*chaos*(0.5+0.5*Math.sin(tt*1.3+b))*live;
         var grad=g.createLinearGradient(0,yy-S(26),0,yy+S(26));
-        grad.addColorStop(0,'rgba(255,61,46,0)'); grad.addColorStop(0.5,'rgba(255,61,46,'+aMode.toFixed(3)+')'); grad.addColorStop(1,'rgba(255,61,46,0)');
+        var _rr=window.DMI_RED_RGB||'255,61,46'; grad.addColorStop(0,'rgba('+_rr+',0)'); grad.addColorStop(0.5,'rgba('+_rr+','+aMode.toFixed(3)+')'); grad.addColorStop(1,'rgba('+_rr+',0)');
         g.fillStyle=grad; g.fillRect(S(40),yy-S(26),S(542),S(52));
       }
       g.restore();
@@ -4294,7 +4357,7 @@ if(hasGSAP && !REDUCED){
          re-colours the plan even with no sound playing. */
       g.save(); g.globalCompositeOperation='lighter';
       var opR=0.42*chaos, opA=0.30*calm;
-      if(opR>0.01){ g.fillStyle='rgba(255,61,46,'+opR.toFixed(3)+')'; g.beginPath(); g.arc(pt.x,pt.y,Math.max(1.3,S(2.0)),0,Math.PI*2); g.fill(); }
+      if(opR>0.01){ g.fillStyle='rgba('+(window.DMI_RED_RGB||'255,61,46')+','+opR.toFixed(3)+')'; g.beginPath(); g.arc(pt.x,pt.y,Math.max(1.3,S(2.0)),0,Math.PI*2); g.fill(); }
       if(opA>0.01){ g.fillStyle='rgba(255,200,97,'+opA.toFixed(3)+')'; g.beginPath(); g.arc(pt.x,pt.y,Math.max(1,S(1.6)),0,Math.PI*2); g.fill(); }
       g.restore();
 
@@ -4303,7 +4366,7 @@ if(hasGSAP && !REDUCED){
       // BARE: hot specular bounce — a packet travels src -> wall -> ear (arrives late)
       if(chaos>0.01){
         g.save(); g.globalCompositeOperation='lighter';
-        g.beginPath(); g.lineWidth=Math.max(1,S(0.8)); g.strokeStyle='rgba(255,61,46,'+(0.16*chaos*live).toFixed(3)+')';
+        g.beginPath(); g.lineWidth=Math.max(1,S(0.8)); g.strokeStyle='rgba('+(window.DMI_RED_RGB||'255,61,46')+','+(0.16*chaos*live).toFixed(3)+')';
         g.moveTo(src.x,src.y); g.lineTo(pt.x,pt.y); g.lineTo(L.x,L.y); g.stroke();
         var seg1=dist(r.source,r.point), seg2=dist(r.point,LISTENER), total=seg1+seg2;
         var speed=0.42+live*0.5;
@@ -4313,7 +4376,7 @@ if(hasGSAP && !REDUCED){
         else { var u2=(travel-seg1)/seg2; pkt={x:lerp(pt.x,L.x,u2),y:lerp(pt.y,L.y,u2)}; pa=0.9*(1-u2*0.2); }
         var pr=Math.max(1.5,S(2.6))*(0.7+0.5*live);
         var rg=g.createRadialGradient(pkt.x,pkt.y,0,pkt.x,pkt.y,pr*3);
-        rg.addColorStop(0,'rgba(255,80,64,'+(pa*chaos*live).toFixed(3)+')'); rg.addColorStop(1,'rgba(255,61,46,0)');
+        rg.addColorStop(0,'rgba(255,80,64,'+(pa*chaos*live).toFixed(3)+')'); rg.addColorStop(1,'rgba('+(window.DMI_RED_RGB||'255,61,46')+',0)');
         g.fillStyle=rg; g.beginPath(); g.arc(pkt.x,pkt.y,pr*3,0,Math.PI*2); g.fill();
         g.restore();
       }
@@ -4341,7 +4404,7 @@ if(hasGSAP && !REDUCED){
     g.save(); g.globalCompositeOperation='lighter';
     var jitter = SILENT ? 0 : chaos*S(3.2)*Math.sin(tt*9);
     var lr=S(9+live*7);
-    var col = chaos>0.5 ? '255,61,46' : '255,174,45';
+    var col = chaos>0.5 ? (window.DMI_RED_RGB||'255,61,46') : '255,174,45';
     if(live>0.02){
       var lg=g.createRadialGradient(L.x+jitter,L.y,0,L.x,L.y,lr*2.4);
       lg.addColorStop(0,'rgba('+col+','+(0.5*live).toFixed(3)+')'); lg.addColorStop(1,'rgba('+col+',0)');
@@ -4378,7 +4441,7 @@ if(hasGSAP && !REDUCED){
     g.fillText('-12', x0-Math.round(6*DPR), yOf(-12)+Math.round(3*DPR));
 
     // the curve: lerp treated->bare by bareAmt
-    var col = mixColor([255,174,45],[255,61,46],bareAmt);
+    var col = mixColor([255,174,45],(window.DMI_RED_ARR||[255,61,46]),bareAmt);
     var glow = 'rgba('+col[0]+','+col[1]+','+col[2]+',';
     g.save(); g.beginPath();
     var disp=[];
